@@ -1,6 +1,7 @@
 package opgave02.models;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
 public class Loan {
@@ -11,7 +12,7 @@ public class Loan {
     }
 
     public int calculateFine(LocalDate actualDate, boolean adult) {
-         int daysBetween = (int) (actualDate.toEpochDay() - returnDate.toEpochDay());
+         long daysBetween = ChronoUnit.DAYS.between(returnDate, actualDate);
          int fine = 0;
          if (daysBetween > 0) {
              if (daysBetween < 7) {
