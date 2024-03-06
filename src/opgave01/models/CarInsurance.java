@@ -25,25 +25,25 @@ public class CarInsurance {
         if (age < 18 || yearsWithoutDamage < 0 || yearsWithoutDamage > age - 18) {
             throw new RuntimeException("Error in age or years without damage");
         }
-        double premiumDiscount = 0;
+        double premiumDiscount = basisPremium;
         if (age < 25) {
-            premiumDiscount += 25;
+            premiumDiscount *= 1.25;
+        }
+        if (isWoman) {
+            premiumDiscount *= 0.95;
         }
         if (yearsWithoutDamage >= 3) {
             if (yearsWithoutDamage <= 5) {
-                premiumDiscount -= 15;
+                premiumDiscount *= 0.85;
             }
             if (yearsWithoutDamage >= 6 && yearsWithoutDamage <= 8) {
-                premiumDiscount -= 25;
+                premiumDiscount *= 0.75;
             }
             if (yearsWithoutDamage > 8) {
-                premiumDiscount -= 35;
+                premiumDiscount *= 0.65;
             }
         }
-        if (isWoman) {
-            premiumDiscount -= 5;
-        }
-        return basisPremium * ((100 + premiumDiscount) / 100);
+        return premiumDiscount;
     }
 }
 
